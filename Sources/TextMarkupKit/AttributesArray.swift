@@ -90,12 +90,14 @@ public struct AttributesArray {
   }
 
   /// Gets the attributes at a specific location, along with the range at which the attributes are the same.
-  public func attributes(at location: Int, effectiveRange: NSRangePointer?) -> AttributedStringAttributes {
-    let index = self.index(startIndex, offsetBy: location)
-    effectiveRange?.pointee = NSRange(location: location - index.offsetInRun, length: runs[index.runIndex].length)
-    return attributesCache.getAttributes(for: runs[index.runIndex].descriptor)
-  }
-
+    public func attributes(at location: Int, effectiveRange: NSRangePointer?) -> AttributedStringAttributes {
+      let index = self.index(startIndex, offsetBy: location)
+      let index2 = index.runIndex
+      if index2 < runs.count {
+          effectiveRange?.pointee = NSRange(location: location - index.offsetInRun, length: runs[index2].length)
+      }
+      return attributesCache.getAttributes(for: runs[index.runIndex].descriptor)
+    }
   /// Computes a range of locations that bound where the receiver is different from `otherAttributes`.
   /// There are guaranteed to be no differences in attributes at locations outside the returned range.
   /// If there are no differences between the arrays, returns nil.
