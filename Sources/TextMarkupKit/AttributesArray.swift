@@ -97,7 +97,7 @@ public struct AttributesArray {
           index2 = runs.count - 1
       }
       effectiveRange?.pointee = NSRange(location: location - index.offsetInRun, length: runs[index2].length)
-      return attributesCache.getAttributes(for: runs[index.runIndex].descriptor)
+      return attributesCache.getAttributes(for: runs[index2].descriptor)
     }
   /// Computes a range of locations that bound where the receiver is different from `otherAttributes`.
   /// There are guaranteed to be no differences in attributes at locations outside the returned range.
